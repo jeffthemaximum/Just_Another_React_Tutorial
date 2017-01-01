@@ -1,4 +1,5 @@
 import React from 'react';
+import MovieListComponent from '../components/MovieListComponent';
 
 const styles = {
 	centering: {
@@ -7,7 +8,8 @@ const styles = {
 }
 
 function HomeComponent(props){
-	console.log(props)
+	const {moviesFound, loading, search} = props.data;
+
 	return(
 		<div className="container" style={styles.centering}>
 			<h1>This Is Your Movie App!</h1>
@@ -24,9 +26,16 @@ function HomeComponent(props){
 		    		hidden/>
 		    </form>
 		  </div>
-
-		  <h2>The name from our props is {props.name}</h2>
+		  {
+			search === true ?
+			<MovieListComponent
+				data = {moviesFound}/>
+			:
+			<h4>Find what ur looking for</h4>
+		  }
 		</div>
+
+		
 	)
 }
 

@@ -1,26 +1,33 @@
 import React from 'react';
 import HomeComponent from '../components/HomeComponent';
+import {multiSearch} from '../helpers/helpers';
 
 const HomeContainer = React.createClass({
 	getInitialState(){
 		return {
-			search: true,
-			movieTitle: "",
-			yourName: "Jason"
+			search: false,
+			movieTitle: ""
 		}
 	},
 	handleUserSubmit(event){
 		event.preventDefault();
 
-		console.log(event.target)
-		console.log($(event.target).find("input:text").val())
+		let movie = $(event.target).find("input:text").val();
+
+		multiSearch(movie)
+			.then((data) => {
+				this.setState({
+					search: true,
+					movieTitle: movie,
+					moviesFound: data
+				})
+			})
 	},
 	render(){
 		console.log(this.state);
 		return(
 			<HomeComponent 
 				data = {this.state}
-				name = {this.state.yourName}
 				onUserSubmit = {this.handleUserSubmit}/>
 		)
 	}
